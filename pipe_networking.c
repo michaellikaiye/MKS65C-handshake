@@ -1,72 +1,72 @@
-#include "pipe_networking.h"
+/* #include "pipe_networking.h" */
+/* #include <errno.h> */
+/* #include <stdio.h> */
+/* #include <string.h> */
+/* #include <sys/types.h> */
+/* #include <sys/stat.h> */
+
+/* char *WKP = "WKP"; */
+/* int bSize = 1024; */
+
+/* /\*========================= */
+/*   server_handshake */
+/*   args: int * to_client */
+
+/*   Performs the client side pipe 3 way handshake. */
+/*   Sets *to_client to the file descriptor to the downstream pipe. */
+
+/*   returns the file descriptor for the upstream pipe. */
+/*   =========================*\/ */
+/* int server_handshake(int *to_client) { */
+/*   char buf[bSize]; */
+/*   int read; */
+/*   int write; */
+/*   if(mkfifo(WKP, 0644) < 0) { */
+/*     perror("failed to make wkp\n"); */
+/*     return -1; */
+/*   } */
+/*   printf("waiting...\n"); */
+/*   read = open(WKP, O_RDONLY); */
+/*   if(read < 0) { */
+/*     perror("failed to open wkp\n"); */
+/*     return -1; */
+/*   } */
+/*   read(read, buf, bSize); */
+/*   printf("received client message, opening pipe %s\n", buf); */
+/*   remove(WKP); */
+/*   write = open(buf, O_WRONLY); */
+/*   if(write < 0) { */
+/*     perror("failed to open pipe"\n); */
+/*     return -1; */
+/*   } */
+/*   printf("connected, sending message\n"); */
+/*   write(write, "hi boi", 7); */
+/*   printf("waiting for response...\n"); */
+/*   read(read, buf, bSize); */
+/*   if ( */
+/* } */
+
+
+/* /\*========================= */
+/*   client_handshake */
+/*   args: int * to_server */
+
+/*   Performs the client side pipe 3 way handshake. */
+/*   Sets *to_server to the file descriptor for the upstream pipe. */
+
+/*   returns the file descriptor for the downstream pipe. */
+/*   =========================*\/ */
+/* int client_handshake(int *to_server) { */
+/*   mkfifo("private",0644); */
+/*   printf("pipe created\n"); */
+/*   fd = open ("private", O_RDONLY); */
+/*   printf("pipe opened: %d\n", fd); */
+/*   return 0; */
+/* } */
+
+  
+
 #include <errno.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-
-char *WKP = "WKP";
-int bSize = 1024;
-
-/*=========================
-  server_handshake
-  args: int * to_client
-
-  Performs the client side pipe 3 way handshake.
-  Sets *to_client to the file descriptor to the downstream pipe.
-
-  returns the file descriptor for the upstream pipe.
-  =========================*/
-int server_handshake(int *to_client) {
-  char buf[bSize];
-  int read;
-  int write;
-  if(mkfifo(WKP, 0644) < 0) {
-    perror("failed to make wkp\n");
-    return -1;
-  }
-  printf("waiting...\n");
-  read = open(WKP, O_RDONLY);
-  if(read < 0) {
-    perror("failed to open wkp\n");
-    return -1;
-  }
-  read(read, buf, bSize);
-  printf("received client message, opening pipe %s\n", buf);
-  remove(WKP);
-  write = open(buf, O_WRONLY);
-  if(write < 0) {
-    perror("failed to open pipe"\n);
-    return -1;
-  }
-  printf("connected, sending message\n");
-  write(write, "hi boi", 7);
-  printf("waiting for response...\n");
-  read(read, buf, bSize);
-  if (
-}
-
-
-/*=========================
-  client_handshake
-  args: int * to_server
-
-  Performs the client side pipe 3 way handshake.
-  Sets *to_server to the file descriptor for the upstream pipe.
-
-  returns the file descriptor for the downstream pipe.
-  =========================*/
-int client_handshake(int *to_server) {
-  mkfifo("private",0644);
-  printf("pipe created\n");
-  fd = open ("private", O_RDONLY);
-  printf("pipe opened: %d\n", fd);
-  return 0;
-}
-
-
-
-  #include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
