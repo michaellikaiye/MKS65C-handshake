@@ -41,14 +41,27 @@ int server_handshake(int *to_client) {
   }
   printf("connected, sending server message\n");
   write(swrite, "hi boi", 7);
+
+  //to do
+  
   printf("waiting for response...\n");
   read(sread, buf, bSize);
   if (strncmp(buf, "i see uuu", 10) != 0) {
     printf("wrong message\n");
     return -1;
-    }
+  }
   printf("connected\n");
-  
+  printf("-------------------\n");
+  while(1) {
+    printf("waiting for response...\n");
+    read(sread, buf, bSize);
+    printf("message: %s\n", buf);
+    int mSize = strlen(buf);
+    char stuff[bSize];
+    sprintf(stuff, "%d", mSize - 1); 
+    write(swrite, stuff, sizeof(stuff));
+    printf("sending processed data, %s\n", stuff);
+  }
   *to_client = swrite;
   return sread;
 }
@@ -93,6 +106,15 @@ int client_handshake(int *to_server) {
   printf("got server message, sending response...\n");
   remove(pp);
   write(cwrite,  "i see uuu", 10);
+  printf("-------------------\n");
+  while(1) {
+    printf("Send something to the server:\n");
+    fgets(buf, 100, stdin);
+    write(cwrite, buf, sizeof(buf));
+    printf("waiting for response...\n");
+    read(cread, buf, bSize);
+    printf("server message: word count is %s\n\n", buf);
+  }
   *to_server = cwrite;
   return cread;
 }
